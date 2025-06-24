@@ -1756,74 +1756,67 @@ body, html, #root, .app-bg {
 
 /* General Mobile Responsiveness Fixes */
 @media (max-width: 480px) {
-  /* --- Login & Signup --- */
-  .signup-card, .login-form {
-    width: 90vw; /* Use viewport width instead of fixed pixels */
-    max-width: 400px;
-    padding: 1.5rem;
-    box-sizing: border-box; /* Ensure padding is included in width */
-  }
-
-  .signup-title {
-    font-size: 1.5rem;
-  }
-
-  /* --- TopUp Page --- */
-  .topup-grid {
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  
-  .topup-welcome {
-    font-size: 1.8rem;
-    margin-left: 1rem;
-  }
-
-  .topup-left {
-    min-width: unset;
-  }
-  
-  /* --- History Page --- */
-  .history-header-row {
-    flex-direction: column;
-    margin-top: 2rem;
-    padding: 0 1rem;
-  }
-  .history-title {
-    font-size: 2.5rem;
-    margin-right: 0;
-    margin-bottom: 1rem;
-  }
+  /* This block can be removed or refined later if needed, 
+     the 768px block below is more comprehensive */
 }
 
-/* --- General Mobile Responsiveness Overrides --- */
+/* --- Comprehensive Mobile Responsiveness Overrides --- */
 @media (max-width: 768px) {
   /* --- Global & Homepage --- */
   .main-content {
     padding: 1rem;
+    overflow-x: hidden; /* Prevent horizontal scroll */
   }
-  .main-content h1, .welcome-title { /* Added .welcome-title for homepage */
+  .main-content h1, .welcome-title {
     font-size: 1.8rem;
   }
-  .subtitle, .rules, .attention, .return-policy {
+  .rules, .attention, .return-policy {
     font-size: 0.9rem;
     padding-left: 0;
   }
 
   /* --- Navbar --- */
-  .pixel-navbar, .pixel-navbar-content {
-    flex-direction: column;
+  .pixel-navbar {
     height: auto;
-    padding: 1rem;
-    gap: 1rem;
+    padding: 0.5rem;
+    margin: 1rem;
+  }
+  .pixel-navbar-content {
+    flex-wrap: wrap; /* Allow items to wrap */
+    justify-content: center;
+    gap: 0.5rem;
   }
   .pixel-navbar-links {
-    order: 2; /* Puts nav buttons below balance */
-    flex-wrap: wrap;
+    order: 2;
+    margin-left: 0;
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 0 0.5rem;
+    width: 100%;
+  }
+  .pixel-nav-btn {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
+    margin-right: 0;
   }
   .pixel-navbar-balance {
     order: 1;
+  }
+  .pixel-balance-btn {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+  
+  /* --- Login Page --- */
+  .login-watermark {
+    z-index: 1; /* Stay behind the form */
+  }
+  .login-center {
+    z-index: 2; /* Ensure form is on top */
+  }
+  .signup-card, .login-form {
+    min-width: 0;
+    width: 90vw;
   }
 
   /* --- History Page --- */
@@ -1834,48 +1827,30 @@ body, html, #root, .app-bg {
   .history-title {
     font-size: 2rem;
   }
-  .history-info {
-    font-size: 0.9rem;
-  }
-  .history-no-data {
-    font-size: 1.2rem;
-  }
 
   /* --- TopUp Page --- */
   .topup-grid {
     flex-direction: column;
+    padding: 0 1rem;
+    box-sizing: border-box;
   }
-  .topup-welcome {
-    font-size: 1.5rem;
+  .topup-left, .topup-right, .profile-card, .telegram-card {
+    min-width: 0; /* Remove fixed min-widths */
+    width: 100%;
   }
   .topup-card {
-    padding: 1.5rem;
-  }
-  .tx-input-group {
-    flex-direction: column;
-    gap: 0.5rem;
+    padding: 1rem;
   }
 
   /* --- Banks Page --- */
   .refined-table-container {
-    overflow-x: auto; /* This is the key fix for the table */
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-    border: 1px solid #333;
-    border-radius: 8px;
+    overflow-x: auto; /* Allow horizontal scroll for the table ONLY */
   }
   .refined-table {
-    width: auto; /* Allow table to be wider than the container */
-    min-width: 600px; /* Force a minimum width to ensure columns don't collapse too much */
+    min-width: 500px; /* Give the table a reasonable minimum size */
+    font-size: 0.85rem; /* Make text smaller to fit more content */
   }
-  .refined-header-row, .refined-toolbar-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-  .refined-title {
-    font-size: 1.8rem;
-  }
-  .refined-desc {
-    font-size: 0.9rem;
+  .refined-table th, .refined-table td {
+    padding: 0.4rem 0.8rem;
   }
 } 
