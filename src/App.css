@@ -1752,4 +1752,46 @@ body, html, #root, .app-bg {
   align-items: center;
   gap: 1rem;
   margin-left: 2rem;
+}
+
+/* General Mobile Responsiveness Fixes */
+@media (max-width: 480px) {
+  /* --- Login & Signup --- */
+  .signup-card, .login-form {
+    width: 90vw; /* Use viewport width instead of fixed pixels */
+    max-width: 400px;
+    padding: 1.5rem;
+    box-sizing: border-box; /* Ensure padding is included in width */
+  }
+
+  .signup-title {
+    font-size: 1.5rem;
+  }
+
+  /* --- TopUp Page --- */
+  .topup-grid {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .topup-welcome {
+    font-size: 1.8rem;
+    margin-left: 1rem;
+  }
+
+  .topup-left {
+    min-width: unset;
+  }
+  
+  /* --- History Page --- */
+  .history-header-row {
+    flex-direction: column;
+    margin-top: 2rem;
+    padding: 0 1rem;
+  }
+  .history-title {
+    font-size: 2.5rem;
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
 } 
