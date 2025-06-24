@@ -15,19 +15,26 @@ function zpubToXpub(zpub) {
 
 // Signup
 router.post('/signup', async (req, res) => {
+  console.log("Signup route hit. Processing new user.");
   try {
     const { username, email, password } = req.body;
+    console.log(`Received signup request for username: ${username}, email: ${email}`);
 
     const existingUser = await User.findOne({ $or: [{ email }, { username }] });
     if (existingUser) {
+      console.log("Signup failed: User already exists.");
       return res.status(400).json({ msg: 'User with this email or username already exists.' });
     }
+    console.log("User does not exist, proceeding.");
 
     // --- Bitcoin Address Generation ---
+    console.log("Starting Bitcoin address generation...");
     const xpubKey = process.env.XPUB_KEY;
     if (!xpubKey) {
+      console.error("CRITICAL: XPUB_KEY not set in environment variables.");
       throw new Error("XPUB_KEY not set in the .env file.");
     }
+    console.log("XPUB_KEY found.");
 
     const zpubNetwork = {
       ...bitcoin.networks.bitcoin,
@@ -38,15 +45,19 @@ router.post('/signup', async (req, res) => {
     };
 
     const userCount = await User.countDocuments();
+    console.log(`Current user count: ${userCount}. Deriving new address.`);
     const node = bip32.fromBase58(xpubKey, zpubNetwork);
     const child = node.derive(0).derive(userCount);
+    console.log("Address derivation successful.");
 
     // FIX: Ensure the public key is a Buffer before creating the address
     const btcAddress = bitcoin.payments.p2wpkh({ pubkey: Buffer.from(child.publicKey) }).address;
+    console.log(`Generated BTC Address: ${btcAddress}`);
     // --- End Address Generation ---
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
+    console.log("Password hashed.");
 
     const newUser = new User({
       email,
@@ -56,6 +67,7 @@ router.post('/signup', async (req, res) => {
     });
 
     const savedUser = await newUser.save();
+    console.log("New user saved to database successfully.");
     res.json({
         id: savedUser._id,
         username: savedUser.username,
