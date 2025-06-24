@@ -29,16 +29,17 @@ export default function Login({ onLogin }) {
   const [success, setSuccess] = useState("");
   const [showSignupPopup, setShowSignupPopup] = useState(false);
 
-  const API_URL = "http://localhost:5000";
+  const API_URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:5000';
 
   async function handleSignup(e) {
     e.preventDefault();
+    setError(""); // Clear previous errors
     try {
       if (!signupUsername || !signupEmail || !signupPassword) {
         setError("Please fill in all fields.");
         return;
       }
-      await axios.post(`${API_URL}/users/signup`, {
+      const response = await axios.post(`${API_URL}/users/signup`, {
         username: signupUsername,
         email: signupEmail,
         password: signupPassword,
@@ -57,7 +58,12 @@ export default function Login({ onLogin }) {
 
   async function handleLogin(e) {
     e.preventDefault();
+    setError(""); // Clear previous errors
     try {
+      if (!loginValue || !password) {
+        setError("Please fill in all fields.");
+        return;
+      }
       const response = await axios.post(`${API_URL}/users/login`, {
         login: loginValue,
         password,
