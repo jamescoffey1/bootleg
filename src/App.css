@@ -1794,4 +1794,88 @@ body, html, #root, .app-bg {
     margin-right: 0;
     margin-bottom: 1rem;
   }
+}
+
+/* --- General Mobile Responsiveness Overrides --- */
+@media (max-width: 768px) {
+  /* --- Global & Homepage --- */
+  .main-content {
+    padding: 1rem;
+  }
+  .main-content h1, .welcome-title { /* Added .welcome-title for homepage */
+    font-size: 1.8rem;
+  }
+  .subtitle, .rules, .attention, .return-policy {
+    font-size: 0.9rem;
+    padding-left: 0;
+  }
+
+  /* --- Navbar --- */
+  .pixel-navbar, .pixel-navbar-content {
+    flex-direction: column;
+    height: auto;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  .pixel-navbar-links {
+    order: 2; /* Puts nav buttons below balance */
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .pixel-navbar-balance {
+    order: 1;
+  }
+
+  /* --- History Page --- */
+  .history-header-row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .history-title {
+    font-size: 2rem;
+  }
+  .history-info {
+    font-size: 0.9rem;
+  }
+  .history-no-data {
+    font-size: 1.2rem;
+  }
+
+  /* --- TopUp Page --- */
+  .topup-grid {
+    flex-direction: column;
+  }
+  .topup-welcome {
+    font-size: 1.5rem;
+  }
+  .topup-card {
+    padding: 1.5rem;
+  }
+  .tx-input-group {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  /* --- Banks Page --- */
+  .refined-table-container {
+    overflow-x: auto; /* This is the key fix for the table */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    border: 1px solid #333;
+    border-radius: 8px;
+  }
+  .refined-table {
+    width: auto; /* Allow table to be wider than the container */
+    min-width: 600px; /* Force a minimum width to ensure columns don't collapse too much */
+  }
+  .refined-header-row, .refined-toolbar-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .refined-title {
+    font-size: 1.8rem;
+  }
+  .refined-desc {
+    font-size: 0.9rem;
+  }
 } 

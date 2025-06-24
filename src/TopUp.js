@@ -9,6 +9,8 @@ export default function TopUp({ updateBalance }) {
   const [balance, setBalance] = useState(0);
   const [usdBalance, setUsdBalance] = useState(0);
 
+  const API_URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:5000';
+
   useEffect(() => {
     const storedUser = localStorage.getItem("bootlegger_user");
     if (storedUser) {
@@ -29,7 +31,7 @@ export default function TopUp({ updateBalance }) {
     setVerificationResult(null);
 
     try {
-      const response = await fetch('http://localhost:5000/users/verify-payment', {
+      const response = await fetch(`${API_URL}/users/verify-payment`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
