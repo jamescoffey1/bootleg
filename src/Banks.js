@@ -41,6 +41,17 @@ export function BankLogs({ bank }) {
   const [page, setPage] = useState(0);
   const [columnsOpen, setColumnsOpen] = useState(false);
   const [sort, setSort] = useState({ key: null, direction: null });
+  const [errorMsg, setErrorMsg] = useState("");
+
+  // Get user balance from localStorage
+  let userBalance = 0;
+  try {
+    const user = localStorage.getItem("bootlegger_user");
+    if (user) {
+      const userData = JSON.parse(user);
+      userBalance = userData.usdBalance || 0;
+    }
+  } catch (e) {}
 
   const filteredData = useMemo(() => {
     let data = dataRef.current.filter((row) =>
@@ -146,7 +157,21 @@ export function BankLogs({ bank }) {
                 {columns.balance && <td>{row.balance}</td>}
                 {columns.actions && (
                   <td>
-                    <button className="banks-buy-btn refined-buy-btn">Buy</button>
+                    <button
+                      className="banks-buy-btn refined-buy-btn"
+                      onClick={() => {
+                        // Parse price as number
+                        const priceNum = Number(row.price.replace(/[^\d.]/g, ""));
+                        if (userBalance < priceNum) {
+                          setErrorMsg("Insufficient balance to buy this item.");
+                        } else {
+                          setErrorMsg("");
+                          // TODO: Implement buy logic here
+                        }
+                      }}
+                    >
+                      Buy
+                    </button>
                   </td>
                 )}
               </tr>
@@ -164,6 +189,9 @@ export function BankLogs({ bank }) {
           </tbody>
         </table>
       </div>
+      {errorMsg && (
+        <div className="banks-error-msg refined-error-msg">{errorMsg}</div>
+      )}
       <div className="banks-pagination refined-pagination">
         <button
           onClick={() => setPage((p) => Math.max(0, p - 1))}
