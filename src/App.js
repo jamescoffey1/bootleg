@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Routes, Route, NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { AiOutlineHome, AiOutlineHistory } from "react-icons/ai";
-import { FaBitcoin, FaUniversity } from "react-icons/fa";
+import { FaBitcoin, FaUniversity, FaBars, FaTimes } from "react-icons/fa";
 import { MdOutlineSupportAgent, MdOutlineMail } from "react-icons/md";
 import { FiLogOut } from "react-icons/fi";
 import History from "./History";
@@ -266,6 +266,81 @@ function BanksDropdown() {
   );
 }
 
+function HamburgerMenu({ onLogout, usdBalance }) {
+  const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
+  const [banksOpen, setBanksOpen] = React.useState(false);
+
+  // Only show on mobile
+  React.useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 700 && open) setOpen(false);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [open]);
+
+  // Helper to close menu on navigation
+  function handleNav(path) {
+    setOpen(false);
+    navigate(path);
+  }
+
+  return (
+    <>
+      {/* Hamburger icon (only on mobile) */}
+      <button
+        className="hamburger-btn"
+        onClick={() => setOpen(true)}
+        style={{ display: "block" }}
+      >
+        <FaBars size={28} />
+      </button>
+      {open && (
+        <div className="hamburger-overlay">
+          <button className="hamburger-close" onClick={() => setOpen(false)}>
+            <FaTimes size={32} />
+          </button>
+          <nav className="hamburger-menu">
+            <NavLink to="/" onClick={() => handleNav("/")} className="hamburger-link">
+              <AiOutlineHome style={{marginRight: 12, fontSize: 22}} /> Home
+            </NavLink>
+            <NavLink to="/history" onClick={() => handleNav("/history")} className="hamburger-link">
+              <AiOutlineHistory style={{marginRight: 12, fontSize: 22}} /> History
+            </NavLink>
+            <NavLink to="/topup" onClick={() => handleNav("/topup")} className="hamburger-link">
+              <FaBitcoin style={{marginRight: 12, fontSize: 22}} /> Top-up
+            </NavLink>
+            <div className="hamburger-link" onClick={() => setBanksOpen((v) => !v)} style={{fontWeight: 700, color: '#e53935'}}>
+              <FaUniversity style={{marginRight: 12, fontSize: 22}} /> BANKS {banksOpen ? "▲" : "▼"}
+            </div>
+            {banksOpen && (
+              <div className="hamburger-banks-list">
+                <div style={{fontWeight: 700, color: '#e53935', marginBottom: 4}}>USA</div>
+                <div className="hamburger-bank-item" onClick={() => handleNav("/bank/wells-fargo")}>Wells Fargo</div>
+                <div className="hamburger-bank-item" onClick={() => handleNav("/bank/woodforest-bank")}>Woodforest Bank</div>
+                <div className="hamburger-bank-item" onClick={() => handleNav("/bank/huntington-bank")}>Huntington Bank</div>
+                <div className="hamburger-bank-item" onClick={() => handleNav("/bank/chase-bank")}>Chase bank</div>
+                {/* Add more banks as needed */}
+              </div>
+            )}
+            <a href="https://web.telegram.org/a/#7854826672" target="_blank" rel="noopener noreferrer" className="hamburger-link" style={{color: '#e53935'}}>
+              <MdOutlineMail style={{marginRight: 12, fontSize: 22}} /> Customer Care
+            </a>
+            <button className="hamburger-link" onClick={() => { setOpen(false); onLogout(); }}>
+              <FiLogOut style={{marginRight: 12, fontSize: 22}} /> Logout
+            </button>
+            <div className="hamburger-balance">
+              <FaBitcoin style={{marginRight: 8, fontSize: 20}} />
+              Balance ${usdBalance.toFixed(2)}
+            </div>
+          </nav>
+        </div>
+      )}
+    </>
+  );
+}
+
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userBalance, setUserBalance] = useState(0);
@@ -325,22 +400,19 @@ function App() {
     <>
       <MatrixBackground />
       <div className="app-bg">
-        <nav className="navbar pixel-navbar">
+        {/* Show hamburger on mobile, navbar on desktop */}
+        <div className="mobile-nav-wrapper">
+          <HamburgerMenu onLogout={handleLogout} usdBalance={usdBalance} />
+        </div>
+        <nav className="navbar pixel-navbar desktop-navbar">
           <div className="navbar-content pixel-navbar-content">
             <div className="navbar-links pixel-navbar-links">
-              <NavLink to="/" end className={({isActive}) => "pixel-nav-btn" + (isActive ? " active" : "")}>
-                <AiOutlineHome style={{marginRight: 8, fontSize: 20, verticalAlign: "middle"}} /><span>Home</span>
-              </NavLink>
-              <NavLink to="/history" className={({isActive}) => "pixel-nav-btn" + (isActive ? " active" : "")}>
-                <AiOutlineHistory style={{marginRight: 8, fontSize: 20, verticalAlign: "middle"}} /><span>History</span>
-              </NavLink>
-              <NavLink to="/topup" className={({isActive}) => "pixel-nav-btn" + (isActive ? " active" : "")}>
-                <FaBitcoin style={{marginRight: 8, fontSize: 20, verticalAlign: "middle"}} /><span>Top-up</span>
-              </NavLink>
+              <NavLink to="/" end className={({isActive}) => "pixel-nav-btn" + (isActive ? " active" : "")}> <AiOutlineHome style={{marginRight: 8, fontSize: 20, verticalAlign: "middle"}} /><span>Home</span> </NavLink>
+              <NavLink to="/history" className={({isActive}) => "pixel-nav-btn" + (isActive ? " active" : "")}> <AiOutlineHistory style={{marginRight: 8, fontSize: 20, verticalAlign: "middle"}} /><span>History</span> </NavLink>
+              <NavLink to="/topup" className={({isActive}) => "pixel-nav-btn" + (isActive ? " active" : "")}> <FaBitcoin style={{marginRight: 8, fontSize: 20, verticalAlign: "middle"}} /><span>Top-up</span> </NavLink>
               <BanksDropdown />
               <button className="pixel-nav-btn" onClick={() => window.open('https://web.telegram.org/a/#7854826672', '_blank', 'noopener,noreferrer')}><MdOutlineMail style={{marginRight: 8, fontSize: 20, verticalAlign: "middle"}} /><span>Customer Care</span></button>
             </div>
-            
             <div className="navbar-user-actions">
               <button className="pixel-nav-btn" onClick={handleLogout}><FiLogOut style={{marginRight: 8, fontSize: 20, verticalAlign: "middle"}} /><span>Logout</span></button>
               <div className="navbar-balance pixel-navbar-balance">
