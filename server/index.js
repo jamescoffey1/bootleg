@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 const mongoose = require('mongoose');
+const path = require('path');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -19,6 +20,19 @@ connection.once('open', () => {
 
 const usersRouter = require('./routes/users');
 app.use('/users', usersRouter);
+
+// --- Deployment ---
+// This code enables the Express server to serve the built React application.
+
+// 1. Serve static files from the React build folder
+app.use(express.static(path.join(__dirname, '../build')));
+
+// 2. For any request that doesn't match an API route, send back the React index.html file.
+// This allows React Router to handle the routing on the client side.
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../build', 'index.html'));
+});
+// --- End Deployment ---
 
 app.get('/', (req, res) => {
   res.send('Bootlegger backend is running!');
