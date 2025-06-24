@@ -95,7 +95,14 @@ export function BankLogs({ bank }) {
     "Dumps", "Clone Cards", "Paypal", "Cash App Logs"
   ];
   const isOther = otherOptions.map(x => x.toLowerCase()).includes((bank || '').toLowerCase());
-  const header = bank ? (isOther ? bank : `${bank} Logs`) : "PayPal Logs";
+  // Fix: Only append 'Logs' if bank name does not already end with 'logs'
+  const header = bank
+    ? (isOther
+        ? bank
+        : bank.trim().toLowerCase().endsWith('logs')
+          ? bank
+          : `${bank} Logs`)
+    : "PayPal Logs";
   // Optionally, you could customize the description per bank
   const desc = DESCRIPTIONS[0];
 
