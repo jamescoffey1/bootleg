@@ -302,34 +302,36 @@ function HamburgerMenu({ onLogout, usdBalance }) {
             <button className="hamburger-close" onClick={() => setOpen(false)}>
               <FaTimes size={32} />
             </button>
-            <NavLink to="/" onClick={() => handleNav("/")} className="hamburger-link">
-              <AiOutlineHome style={{marginRight: 12, fontSize: 22}} /> Home
-            </NavLink>
-            <NavLink to="/history" onClick={() => handleNav("/history")} className="hamburger-link">
-              <AiOutlineHistory style={{marginRight: 12, fontSize: 22}} /> History
-            </NavLink>
-            <NavLink to="/topup" onClick={() => handleNav("/topup")} className="hamburger-link">
-              <FaBitcoin style={{marginRight: 12, fontSize: 22}} /> Top-up
-            </NavLink>
-            <div className="hamburger-link" onClick={() => setBanksOpen((v) => !v)} style={{fontWeight: 700, color: '#e53935'}}>
-              <FaUniversity style={{marginRight: 12, fontSize: 22}} /> BANKS {banksOpen ? "▲" : "▼"}
-            </div>
-            {banksOpen && (
-              <div className="hamburger-banks-list">
-                <div style={{fontWeight: 700, color: '#e53935', marginBottom: 4}}>USA</div>
-                <div className="hamburger-bank-item" onClick={() => handleNav("/bank/wells-fargo")}>Wells Fargo</div>
-                <div className="hamburger-bank-item" onClick={() => handleNav("/bank/woodforest-bank")}>Woodforest Bank</div>
-                <div className="hamburger-bank-item" onClick={() => handleNav("/bank/huntington-bank")}>Huntington Bank</div>
-                <div className="hamburger-bank-item" onClick={() => handleNav("/bank/chase-bank")}>Chase bank</div>
-                {/* Add more banks as needed */}
+            <div style={{flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', overflow: 'auto'}}>
+              <NavLink to="/" onClick={() => handleNav("/")} className="hamburger-link">
+                <AiOutlineHome style={{marginRight: 12, fontSize: 22}} /> Home
+              </NavLink>
+              <NavLink to="/history" onClick={() => handleNav("/history")} className="hamburger-link">
+                <AiOutlineHistory style={{marginRight: 12, fontSize: 22}} /> History
+              </NavLink>
+              <NavLink to="/topup" onClick={() => handleNav("/topup")} className="hamburger-link">
+                <FaBitcoin style={{marginRight: 12, fontSize: 22}} /> Top-up
+              </NavLink>
+              <div className="hamburger-link" onClick={() => setBanksOpen((v) => !v)} style={{fontWeight: 700, color: '#fff'}}>
+                <FaUniversity style={{marginRight: 12, fontSize: 22}} /> BANKS {banksOpen ? "▲" : "▼"}
               </div>
-            )}
-            <a href="https://web.telegram.org/a/#7854826672" target="_blank" rel="noopener noreferrer" className="hamburger-link" style={{color: '#e53935'}}>
-              <MdOutlineMail style={{marginRight: 12, fontSize: 22}} /> Customer Care
-            </a>
-            <button className="hamburger-link" onClick={() => { setOpen(false); onLogout(); }}>
-              <FiLogOut style={{marginRight: 12, fontSize: 22}} /> Logout
-            </button>
+              {banksOpen && (
+                <div className="hamburger-banks-list">
+                  <div className="hamburger-bank-item" onClick={() => handleNav("/bank/chase-bank")}>Chase bank</div>
+                  <div className="hamburger-bank-item" onClick={() => handleNav("/bank/boa")}>BOA</div>
+                  <div className="hamburger-bank-item" onClick={() => handleNav("/bank/td-bank")}>TD BANK</div>
+                  <div className="hamburger-bank-item" onClick={() => handleNav("/bank/m-and-t-bank")}>M&T bank</div>
+                  <div className="hamburger-bank-item" onClick={() => handleNav("/bank/citizens-bank")}>Citizens bank</div>
+                  {/* Add more banks as needed */}
+                </div>
+              )}
+              <a href="https://web.telegram.org/a/#7854826672" target="_blank" rel="noopener noreferrer" className="hamburger-link" style={{color: '#fff'}}>
+                <MdOutlineMail style={{marginRight: 12, fontSize: 22}} /> Customer Care
+              </a>
+              <button className="hamburger-link" onClick={() => { setOpen(false); onLogout(); }}>
+                <FiLogOut style={{marginRight: 12, fontSize: 22}} /> Logout
+              </button>
+            </div>
             <div className="hamburger-balance">
               <FaBitcoin style={{marginRight: 8, fontSize: 20}} />
               Balance ${usdBalance.toFixed(2)}
