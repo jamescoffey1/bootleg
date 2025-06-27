@@ -298,10 +298,10 @@ function HamburgerMenu({ onLogout, usdBalance }) {
       </button>
       {open && (
         <div className="hamburger-overlay">
-          <button className="hamburger-close" onClick={() => setOpen(false)}>
-            <FaTimes size={32} />
-          </button>
           <nav className="hamburger-menu">
+            <button className="hamburger-close" onClick={() => setOpen(false)}>
+              <FaTimes size={32} />
+            </button>
             <NavLink to="/" onClick={() => handleNav("/")} className="hamburger-link">
               <AiOutlineHome style={{marginRight: 12, fontSize: 22}} /> Home
             </NavLink>

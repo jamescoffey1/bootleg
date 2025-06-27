@@ -1346,6 +1346,61 @@ body, html, #root, .app-bg {
     height: 44px;
     font-size: 0.95rem;
   }
+  .hamburger-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10, 15, 20, 0.7); /* Darker, slightly transparent background */
+    z-index: 3000;
+    display: flex; /* Use flexbox for centering */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    padding: 1rem;
+    backdrop-filter: blur(5px); /* Add a blur effect to the background */
+    animation: fadeInPopup 0.2s;
+  }
+  .hamburger-menu {
+    background: #19191b; /* Match the reference image background */
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.25);
+    padding: 2rem;
+    width: 100%;
+    max-width: 400px; /* Constrain the width on larger mobile screens */
+    max-height: 85vh; /* Limit the height to 85% of the viewport height */
+    overflow-y: auto; /* Make the entire menu scrollable if content overflows */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* Make links take full width */
+    gap: 0.8rem;
+    z-index: 3200;
+  }
+
+  .hamburger-banks-list {
+    /* No longer needs its own scrolling, as the parent .hamburger-menu handles it */
+    margin-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .hamburger-close {
+    /* The close button should be inside the menu card for better context */
+    align-self: flex-end; /* Push to the right */
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.8rem;
+    cursor: pointer;
+    z-index: 3100;
+    padding: 0;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (min-width: 701px) {
+  .mobile-nav-wrapper, .hamburger-btn, .hamburger-overlay {
+    display: none !important;
+  }
 }
 
 .login-bg {
@@ -2031,39 +2086,38 @@ body, html, #root, .app-bg {
   .hamburger-overlay {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(24, 30, 42, 0.98);
+    background: rgba(10, 15, 20, 0.7); /* Darker, slightly transparent background */
     z-index: 3000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
+    display: flex; /* Use flexbox for centering */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    padding: 1rem;
+    backdrop-filter: blur(5px); /* Add a blur effect to the background */
     animation: fadeInPopup 0.2s;
-    border-radius: 0 0 2.5rem 2.5rem;
-    padding-top: 1.5rem;
   }
   .hamburger-close {
+    /* The close button should be inside the menu card for better context */
+    align-self: flex-end; /* Push to the right */
     background: none;
     border: none;
     color: #fff;
-    position: absolute;
-    top: 18px;
-    right: 24px;
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     cursor: pointer;
     z-index: 3100;
   }
   .hamburger-menu {
-    margin-top: 3.5rem;
-    width: 92vw;
-    max-width: 420px;
-    background: #232323;
-    border-radius: 2rem;
-    box-shadow: 0 4px 32px rgba(0,0,0,0.18);
-    padding: 2.2rem 1.5rem 1.5rem 1.5rem;
+    background: #19191b; /* Match the reference image background */
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.25);
+    padding: 2rem;
+    width: 100%;
+    max-width: 400px; /* Constrain the width on larger mobile screens */
+    max-height: 85vh; /* Limit the height to 85% of the viewport height */
+    overflow-y: auto; /* Make the entire menu scrollable if content overflows */
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    gap: 1.1rem;
+    align-items: stretch; /* Make links take full width */
+    gap: 0.8rem;
     z-index: 3200;
   }
   .hamburger-link {
@@ -2086,6 +2140,7 @@ body, html, #root, .app-bg {
     color: #ffd700;
   }
   .hamburger-banks-list {
+    /* No longer needs its own scrolling, as the parent .hamburger-menu handles it */
     margin-left: 1.5rem;
     margin-bottom: 0.5rem;
     display: flex;
