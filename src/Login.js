@@ -178,7 +178,7 @@ export default function Login({ onLogin }) {
           )}
         </div>
         <div className="login-watermark">Bootlegger</div>
-        <div className="login-copyright">Bootlegger © 2015-2024</div>
+        <div className="login-copyright">Bootlegger © 2015-2026</div>
       </div>
     </>
   );
