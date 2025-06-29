@@ -10,6 +10,8 @@ body, html, #root, .app-bg {
   font-family: 'Inter', Arial, sans-serif;
   box-sizing: border-box;
   position: relative;
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
 }
 
 .app-bg {
@@ -1372,7 +1374,7 @@ body, html, #root, .app-bg {
     align-items: stretch;
     gap: 0.7rem;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
   }
   .hamburger-close {
     position: absolute;
@@ -1682,9 +1684,6 @@ body, html, #root, .app-bg {
   margin-top: 0.1rem;
   outline: none;
   box-shadow: none;
-  width: 100%;
-  transition: border 0.18s;
-  box-sizing: border-box;
 }
 .signup-input:focus {
   border: 1.5px solid #e6c200;
@@ -2176,7 +2175,7 @@ body, html, #root, .app-bg {
     align-items: stretch;
     gap: 0.7rem;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
   }
   .hamburger-link {
     display: flex;

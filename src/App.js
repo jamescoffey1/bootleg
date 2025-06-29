@@ -317,12 +317,20 @@ function HamburgerMenu({ onLogout, usdBalance }) {
               </div>
               {banksOpen && (
                 <div className="hamburger-banks-list">
-                  <div className="hamburger-bank-item" onClick={() => handleNav("/bank/chase-bank")}>Chase bank</div>
-                  <div className="hamburger-bank-item" onClick={() => handleNav("/bank/boa")}>BOA</div>
-                  <div className="hamburger-bank-item" onClick={() => handleNav("/bank/td-bank")}>TD BANK</div>
-                  <div className="hamburger-bank-item" onClick={() => handleNav("/bank/m-and-t-bank")}>M&T bank</div>
-                  <div className="hamburger-bank-item" onClick={() => handleNav("/bank/citizens-bank")}>Citizens bank</div>
-                  {/* Add more banks as needed */}
+                  {banksMenu.map(section => (
+                    <React.Fragment key={section.category}>
+                      <div style={{ color: '#e53935', fontWeight: 700, marginBottom: 4 }}>{section.category}</div>
+                      {section.items.map(item => (
+                        <div
+                          className="hamburger-bank-item"
+                          key={item}
+                          onClick={() => handleNav(`/bank/${slugify(item)}`)}
+                        >
+                          {item}
+                        </div>
+                      ))}
+                    </React.Fragment>
+                  ))}
                 </div>
               )}
               <a href="https://web.telegram.org/a/#7854826672" target="_blank" rel="noopener noreferrer" className="hamburger-link" style={{color: '#fff'}}>
