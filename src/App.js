@@ -27,7 +27,7 @@ function Home() {
       <ol className="rules">
         <li>Персональные данные клиентов хранятся в базе данных с нестандартным шифрованием и гарантированной безопасностью.</li>
         <li>Запрещена передача своих аккаунтов и ссылка на магазин 3-м лицам</li>
-        <li>For all questions, please contact the chat directly in the store, or by Telegram: @bootleggersupport</li>
+        <li>For all questions, please contact the chat directly in the store, or by Telegram: @Onlybusinesspurposes</li>
         <li>Replacing the invalid - return the cost account to an account in your personal account</li>
         <li>Accounts inactive for a month are - deleted for security reasons!</li>
         <li>За несоблюдение правил - удаление аккаунта без права восстановления.</li>
